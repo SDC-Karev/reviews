@@ -28,7 +28,9 @@ var seedReviewsTable = function() {
     let purchaseType = getRandomTinyInt();
     let lang = 'English';
     let earlyAccess = getRandomTinyInt();
-    connection.query(`INSERT INTO reviews (game_id, author_id, date, text, review_type, hrs_at_review, purchase_type, lang, early_access) VALUES (${gameId},${authorId},'${date}','${text}',${reviewType},${hrsAtReview},${purchaseType},'${lang}',${earlyAccess})`);
+    connection.query(
+      `INSERT INTO reviews (game_id, author_id, date, text, review_type, hrs_at_review, purchase_type, lang, early_access)
+      VALUES (${gameId},${authorId},'${date}','${text}',${reviewType},${hrsAtReview},${purchaseType},'${lang}',${earlyAccess})`);
   }
   console.log('done reviews');
 }
@@ -40,7 +42,9 @@ var seedAuthorsTable = function() {
     let productCount = getRandomInt(100);
     let reviewCount = getRandomInt(100);
     let hrsOnRecord = getRandomHrs(75);
-    connection.query(`INSERT INTO authors (name, product_count, review_count, hrs_on_record) VALUES ('${name}',${productCount},${reviewCount},${hrsOnRecord})`);
+    connection.query(
+      `INSERT INTO authors (name, product_count, review_count, hrs_on_record)
+      VALUES ('${name}',${productCount},${reviewCount},${hrsOnRecord})`);
   }
   console.log('authors table done');
 }
@@ -59,7 +63,9 @@ var seedAwardsTable = function() {
   let awards = ["helpful", "unhelpful", "funny","Wow!","I like turtles", "Wassup", "Gold","Woohoo"]
   for (let i = 0; i < desiredRecords; i++) {
     let fakeAward = awards[i];
-    connection.query(`INSERT INTO awards (name) VALUES ('${fakeAward}')`);
+    connection.query(
+      `INSERT INTO awards (name)
+      VALUES ('${fakeAward}')`);
   }
   console.log('done awards');
 }
@@ -70,7 +76,9 @@ var seedReviewsAwardsTable = function() {
     let reviewId = getRandomInt(10000);
     let awardId = getRandomInt(8);
     let authorId = getRandomInt(100);
-    connection.query(`INSERT INTO reviews_awards (review_id, award_id, author_id) VALUES (${reviewId},${awardId},${authorId})`);
+    connection.query(
+      `INSERT INTO reviews_awards (review_id, award_id, author_id)
+      VALUES (${reviewId},${awardId},${authorId})`);
   }
   console.log('done reviews_awards')
 }
@@ -81,7 +89,9 @@ var seedAuthorsGamesTable = function() {
     let authorId = getRandomInt(100);
     let gameId = getRandomInt(100);
     let hoursPlayed = getRandomHrs(100);
-    connection.query(`INSERT INTO authors_games (author_id, game_id, hours_played) VALUES (${authorId},${gameId},${hoursPlayed})`);
+    connection.query(
+      `INSERT INTO authors_games (author_id, game_id, hours_played)
+      VALUES (${authorId},${gameId},${hoursPlayed})`);
   }
   console.log('done authors_games')
 }

@@ -14,8 +14,9 @@ app.use(bodyParser.json());
 //app.use(express.static(__dirname + '/../react-client/dist'));
 
 
-app.get('/api/recentReviews', (req, res) => {
-  db.getRecentReviews(1)
+app.get('/api/recentReviews/:id', (req, res) => {
+  let gameId = req.params.id;
+  db.getRecentReviews(gameId)
     .then((reviews) => {
       res.send(reviews);
       res.end();
@@ -26,8 +27,9 @@ app.get('/api/recentReviews', (req, res) => {
     })
 })
 
-app.get('/api/helpfulReviews', (req, res) => {
-  db.getHelpfulReviews(2)
+app.get('/api/helpfulReviews/:id', (req, res) => {
+  let gameId = req.params.id;
+  db.getHelpfulReviews(gameId)
     .then((reviews) => {
       res.send(reviews);
       res.end();
@@ -38,8 +40,9 @@ app.get('/api/helpfulReviews', (req, res) => {
     })
 })
 
-app.get('/api/awards', (req, res) => {
-  db.getAwards(1)
+app.post('/api/awards', (req, res) => {
+  let reviewId = req.body.id;
+  db.getAwards(reviewId)
     .then((awards) => {
       res.send(awards);
       res.end();
