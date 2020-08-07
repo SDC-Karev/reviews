@@ -11,7 +11,7 @@ app.listen(port, () => {
 
 app.use(bodyParser.json());
 // UNCOMMENT FOR REACT
-//app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../client/dist'));
 
 
 app.get('/api/recentReviews/:id', (req, res) => {
