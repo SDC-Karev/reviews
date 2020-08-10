@@ -10,7 +10,7 @@ const getRecentReviews = function(gameId) {
     FROM reviews
     INNER JOIN authors ON reviews.author_id = authors.id
     WHERE reviews.game_id = ${gameId}
-    ORDER BY reviews.date
+    ORDER BY reviews.date DESC
     LIMIT 10`, function (err, reviews) {
       if (err) {
         reject(err);
