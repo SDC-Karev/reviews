@@ -1,8 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 import HelpfulReviews from './HelpfulReviews.jsx';
 import RecentReviews from './RecentReviews.jsx';
+import Header from './Header.jsx';
+
+const Body = styled.div`
+margin-bottom: 32px;
+border-top: 1px solid #000;
+display: block;
+font-family: Arial, Helvetica, sans-serif;
+color: #c6d4df;
+background-color: #1b2838;
+font-size: 12px;
+`;
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -33,31 +45,22 @@ class Reviews extends React.Component {
 
   render() {
     return (
-      <div>
-        <h4>Customer Reviews</h4>
-        <div>
-          <h5>Overall Reviews:</h5>
-          <h5>Mostly Positive (Insert Number Here Reviews)</h5>
-        </div>
-        <span></span>
-        <div>
-          <h5>Recent Reviews:</h5>
-          <h5>Mostly Positive</h5>
-        </div>
-        <div>
-          Most Helpful Reviews In The Past 30 Days
-        </div>
-        <div>
-          <HelpfulReviews reviews={this.state.helpfulReviews}/>
-        </div>
-        <div>
-          Recently Posted
-        </div>
-        <div>
-          <RecentReviews reviews={this.state.recentReviews}/>
-        </div>
-
-      </div>
+      <Body>
+          <Header />
+          <span></span>
+          <div>
+            Most Helpful Reviews In The Past 30 Days
+          </div>
+          <div>
+            <HelpfulReviews reviews={this.state.helpfulReviews}/>
+          </div>
+          <div>
+            Recently Posted
+          </div>
+          <div>
+            <RecentReviews reviews={this.state.recentReviews}/>
+          </div>
+      </Body>
     );
   }
 
