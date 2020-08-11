@@ -20,14 +20,14 @@ font-size: 12px;
 
 const LeftCol = styled(Body)`
  &&& {
-  width: 65%;
+  width: 616px;
   float: left;
  }
 `;
 
 const RightCol = styled(Body)`
  &&& {
-  width: 33%;
+  width: 308px;
   margin-left: 14px;
   float: right;
  }
@@ -41,6 +41,12 @@ const ReviewsSubHeader = styled.div`
   text-transform: uppercase;
   padding-bottom: 5px;
   letter-spacing: 2px;
+`;
+
+const SubHeaderDays = styled.span`
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #56707f;
 `;
 
 class Reviews extends React.Component {
@@ -78,7 +84,8 @@ class Reviews extends React.Component {
           <div>Reviews Summary</div>
           <LeftCol>
             <ReviewsSubHeader>
-              Most Helpful Reviews In The Past 30 Days
+              Most Helpful Reviews
+              <SubHeaderDays> in the past 30 days</SubHeaderDays>
             </ReviewsSubHeader>
             <div>
               <HelpfulReviews reviews={this.state.helpfulReviews}/>
