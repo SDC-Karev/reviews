@@ -28,8 +28,7 @@ const Thumb = styled.div`
   float: left;
 `;
 
-const Username = styled(ShortReviewHeader)`
-&&& {
+const Username = styled.div`
   max-width: 120px;
   height: 19px;
   width: 140px;
@@ -39,7 +38,6 @@ const Username = styled(ShortReviewHeader)`
   margin-top: 5px;
   margin-left: 6px;
   float: left;
-}
 `;
 
 const Source = styled.div`
@@ -51,7 +49,7 @@ const Source = styled.div`
 
 const Hours = styled(Username)`
 &&& {
-  opacity: 0.5
+  opacity: .5;
 }
 `;
 
@@ -81,6 +79,55 @@ const Content = styled.div`
   display: block;
   overflow-wrap: break-word;
   overflow: hidden;
+`;
+
+const Posted = styled.div`
+  font-size: 10px;
+  font-style: italic;
+  color: #626366;
+  margin: 0px;
+`;
+
+const ControlBlock = styled.div`
+  margin: 8px 0;
+  display: inline-block;
+`;
+const ControlBlockText = styled.span`
+  display: inline-block;
+  margin-right: 9px;
+  color: #8091a2;
+  font-size: 12px;
+  opacity: 0.6;
+`;
+
+const VoteContainer = styled.div`
+  padding-top: 10px;
+  padding-bottom: 5px;
+`;
+
+const Button = styled.a`
+  border-radius: 2px;
+  border: none;
+  padding: 1px;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: #66c0f4;
+  background: #212c3d;
+  margin-right: 5px;
+`;
+
+const VoteInfo = styled.div`
+  padding: 0px 9px 8px 0px;
+  font-size: 12px;
+  color: #647580;
+  min-height: 16px;
+`;
+
+const HR = styled.div`
+background-color: rgba( 0, 0, 0, 0.5 );
+margin-top: 15px;
+height: 1px;
 `;
 
 class RecentReview extends React.Component {
@@ -114,6 +161,19 @@ class RecentReview extends React.Component {
         <ShortBox>
           <PostedDate> Posted: {reviewDate}</PostedDate>
           <Content>{this.props.review.text}</Content>
+          <Posted>
+
+           </Posted>
+          <HR></HR>
+          <ControlBlock>
+            <ControlBlockText>Helpful?</ControlBlockText>
+            <VoteContainer>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>Yes</Button>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>No</Button>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>Funny</Button>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>Award</Button>
+            </VoteContainer>
+          </ControlBlock>
         </ShortBox>
       </ReviewBoxShort>
     )
