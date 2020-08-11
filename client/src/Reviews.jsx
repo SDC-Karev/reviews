@@ -9,11 +9,38 @@ import Header from './Header.jsx';
 const Body = styled.div`
 margin-bottom: 32px;
 border-top: 1px solid #000;
+width: 940px;
+margin: 0 auto;
 display: block;
 font-family: Arial, Helvetica, sans-serif;
 color: #c6d4df;
 background-color: #1b2838;
 font-size: 12px;
+`;
+
+const LeftCol = styled(Body)`
+ &&& {
+  width: 65%;
+  float: left;
+ }
+`;
+
+const RightCol = styled(Body)`
+ &&& {
+  width: 33%;
+  margin-left: 14px;
+  float: right;
+ }
+`;
+
+const ReviewsSubHeader = styled.div`
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #ffffff;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  letter-spacing: 2px;
 `;
 
 class Reviews extends React.Component {
@@ -47,19 +74,24 @@ class Reviews extends React.Component {
     return (
       <Body>
           <Header />
-          <span></span>
-          <div>
-            Most Helpful Reviews In The Past 30 Days
-          </div>
-          <div>
-            <HelpfulReviews reviews={this.state.helpfulReviews}/>
-          </div>
-          <div>
-            Recently Posted
-          </div>
-          <div>
-            <RecentReviews reviews={this.state.recentReviews}/>
-          </div>
+          <div>Reviews Filter Bar</div>
+          <div>Reviews Summary</div>
+          <LeftCol>
+            <ReviewsSubHeader>
+              Most Helpful Reviews In The Past 30 Days
+            </ReviewsSubHeader>
+            <div>
+              <HelpfulReviews reviews={this.state.helpfulReviews}/>
+            </div>
+          </LeftCol>
+          <RightCol>
+            <ReviewsSubHeader>
+              Recently Posted
+            </ReviewsSubHeader>
+            <div>
+              <RecentReviews reviews={this.state.recentReviews}/>
+            </div>
+          </RightCol>
       </Body>
     );
   }
