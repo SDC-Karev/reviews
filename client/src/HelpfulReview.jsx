@@ -184,6 +184,29 @@ class HelpfulReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.getAwards.bind(this);
+  }
+
+  componentDidMount(){
+    this.getAwards();
+  }
+
+  getAwards() {
+    axios.post('api/awards', {
+      id: this.props.review.review_id
+    })
+    .then((awardsResults) => {
+      var awards = {};
+      awardsResults.data.forEach((award) => {
+        var key = award.name;
+        var value = award['count(*)'];
+        awards[key] = value;
+      })
+      this.setState(awards);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   render() {
@@ -231,9 +254,9 @@ class HelpfulReview extends React.Component {
               <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>Award</Button>
             </VoteContainer>
             <VoteInfo>
-              5 people found this review helpful
+              {this.state.helpful || 0} people found this review helpful
               <br></br>
-              2 people found this review funny
+              {this.state.funny || 0} people found this review funny
             </VoteInfo>
           </ControlBlock>
         </ReviewRightCol>
