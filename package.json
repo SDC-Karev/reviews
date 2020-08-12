@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --coverage --colors",
     "start": "node server/index.js --watch",
     "build:dev": "webpack -d --watch",
     "seed": "node database/seedscript.js",
