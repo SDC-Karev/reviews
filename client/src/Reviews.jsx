@@ -5,10 +5,11 @@ import styled from 'styled-components';
 import HelpfulReviews from './HelpfulReviews.jsx';
 import RecentReviews from './RecentReviews.jsx';
 import Header from './Header.jsx';
+import FilterBar from './FilterBar.jsx'
+import FilterDetails from './FilterDetails.jsx'
 
 const Body = styled.div`
 margin-bottom: 32px;
-border-top: 1px solid #000;
 width: 940px;
 margin: 0 auto;
 display: block;
@@ -63,14 +64,14 @@ class Reviews extends React.Component {
   }
 
   getHelpfulReviews() {
-    axios.get('api/helpfulReviews/1')
+    axios.get('api/helpfulReviews/15')
     .then((helpfulReviews) => {
       this.setState({helpfulReviews: helpfulReviews.data});
     })
   }
 
   getRecentReviews() {
-    axios.get('api/recentReviews/1')
+    axios.get('api/recentReviews/15')
     .then((recentReviews) => {
       this.setState({recentReviews: recentReviews.data});
     })
@@ -80,8 +81,8 @@ class Reviews extends React.Component {
     return (
       <Body>
           <Header />
-          <div>Reviews Filter Bar</div>
-          <div>Reviews Summary</div>
+          <FilterBar />
+          <FilterDetails />
           <LeftCol>
             <ReviewsSubHeader>
               Most Helpful Reviews
