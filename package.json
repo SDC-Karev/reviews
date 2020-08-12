@@ -4,7 +4,7 @@
   "description": "Steam reviews service",
   "main": "index.js",
   "scripts": {
-    "test": "npx mocha server/test.js",
+    "test": "jest",
     "start": "node server/index.js --watch",
     "build:dev": "webpack -d --watch",
     "seed": "node database/seedscript.js",
@@ -47,6 +47,7 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
+    "jest": "^26.3.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   }
