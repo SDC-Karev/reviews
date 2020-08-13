@@ -3,6 +3,11 @@ const mysqlConfig = require('./config.js');
 
 const connection = mysql.createConnection(mysqlConfig);
 
+let today = new Date();
+today.setMonth(today.getMonth() - 1);
+let recentDate = today.toISOString().split('T')[0];
+
+
 const getRecentReviews = function(gameId) {
   return new Promise((resolve, reject) => {
     connection.query(
@@ -29,7 +34,7 @@ const getHelpfulReviews = function(gameId) {
     INNER JOIN reviews ON reviews_awards.review_id = reviews.id
     INNER JOIN authors ON reviews.author_id = authors.id
     INNER JOIN awards ON reviews_awards.award_id = awards.id
-    WHERE award_id = 1 AND reviews.game_id = ${gameId}
+    WHERE award_id = 1 AND reviews.game_id = ${gameId} AND reviews.date >= '${recentDate}'
     GROUP BY review_id
     ORDER BY count(*) DESC
     LIMIT 10`, function (err, reviews) {
@@ -57,6 +62,68 @@ const getAllReviews = function(gameId) {
     });
   })
 };
+
+const getReviewCount = function(gameId) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT count(*)
+      FROM reviews
+      WHERE game_id = ${gameId}`, function(err, count) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(count);
+        }
+      });
+  })
+}
+
+const getRecentReviewCount = function(gameId) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT count(*)
+      FROM reviews
+      WHERE date >= '${recentDate}' and game_id = ${gameId}`, function(err, count) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(count);
+        }
+      });
+  })
+}
+
+const getReviewSentiment = function(gameId) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT review_type, count(*)
+      FROM reviews
+      WHERE game_id = ${gameId}
+      GROUP BY review_type`, function(err, sentiment) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(sentiment);
+        }
+      });
+  })
+}
+
+const getRecentReviewSentiment = function(gameId) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT review_type, count(*)
+      FROM reviews
+      WHERE date >= '${recentDate}' and game_id = ${gameId}
+      GROUP BY review_type`, function(err, sentiment) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(sentiment);
+        }
+      });
+  })
+}
 
 const getAwards = function(reviewId) {
   return new Promise((resolve, reject) => {
@@ -93,5 +160,9 @@ module.exports = {
   getRecentReviews,
   getHelpfulReviews,
   getAllReviews,
-  getAwards
+  getAwards,
+  getReviewCount,
+  getReviewSentiment,
+  getRecentReviewSentiment,
+  getRecentReviewCount
 }

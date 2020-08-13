@@ -8,6 +8,8 @@ import Header from './Header.jsx';
 import FilterBar from './FilterBar.jsx'
 import FilterDetails from './FilterDetails.jsx'
 
+let gameId = 9;
+
 const Body = styled.div`
 margin-bottom: 32px;
 width: 940px;
@@ -56,33 +58,69 @@ class Reviews extends React.Component {
     this.state = {};
     this.getHelpfulReviews.bind(this);
     this.getRecentReviews.bind(this);
+    this.getReviewCount.bind(this);
+    this.getRecentReviewCount.bind(this);
+    this.getReviewSentiment.bind(this);
+    this.getRecentReviewSentiment.bind(this);
   }
 
   componentDidMount() {
     this.getHelpfulReviews();
     this.getRecentReviews();
+    this.getReviewCount();
+    this.getRecentReviewCount();
+    this.getReviewSentiment();
+    this.getRecentReviewSentiment();
   }
 
   getHelpfulReviews() {
-    axios.get('api/helpfulReviews/15')
+    axios.get(`api/helpfulReviews/${gameId}`)
     .then((helpfulReviews) => {
       this.setState({helpfulReviews: helpfulReviews.data});
     })
   }
 
   getRecentReviews() {
-    axios.get('api/recentReviews/15')
+    axios.get(`api/recentReviews/${gameId}`)
     .then((recentReviews) => {
       this.setState({recentReviews: recentReviews.data});
+    })
+  }
+
+  getReviewCount() {
+    axios.get(`api/reviewCount/${gameId}`)
+    .then((count) => {
+      this.setState({reviewCount: count.data});
+    })
+  }
+
+  getRecentReviewCount() {
+    axios.get(`api/recentReviewCount/${gameId}`)
+    .then((count) => {
+      this.setState({recentReviewCount: count.data});
+    })
+  }
+
+  getReviewSentiment() {
+    axios.get(`api/reviewSentiment/${gameId}`)
+    .then((sentiment) => {
+      this.setState({reviewSentiment: sentiment.data});
+    })
+  }
+
+  getRecentReviewSentiment() {
+    axios.get(`api/recentReviewSentiment/${gameId}`)
+    .then((sentiment) => {
+      this.setState({recentReviewSentiment: sentiment.data});
     })
   }
 
   render() {
     return (
       <Body>
-          <Header />
+          <Header reviewCount={this.state.reviewCount} recentReviewCount={this.state.recentReviewCount} reviewSentiment={this.state.reviewSentiment} recentReviewSentiment={this.state.recentReviewSentiment}/>
           <FilterBar />
-          <FilterDetails />
+          <FilterDetails reviewCount={this.state.reviewCount} reviewSentiment={this.state.reviewSentiment}/>
           <LeftCol>
             <ReviewsSubHeader>
               Most Helpful Reviews

@@ -148,7 +148,7 @@ class RecentReview extends React.Component {
       thumb = <img src='https://store.cloudflare.steamstatic.com/public/shared/images/userreviews/icon_thumbsDown_v6.png' width='24' heigh='24'></img>
     }
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let reviewDate = months[Number(this.props.review.date.substring(5,7)) + 1] + ' ' + this.props.review.date.substring(8, 10);
+    let reviewDate = months[Number(this.props.review.date.substring(5,7)) - 1] + ' ' + this.props.review.date.substring(8, 10);
 
     return (
       <ReviewBoxShort>

@@ -8,8 +8,9 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max) + 1);
 }
 
+//slightly biased toward returning a 0
 function getRandomTinyInt() {
-  return Math.round(Math.random() * 1);
+  return Math.round((Math.random() - .2) * 1);
 }
 
 function getRandomHrs(max) {
@@ -17,11 +18,11 @@ function getRandomHrs(max) {
 }
 //
 var seedReviewsTable = function() {
-  let desiredRecords = 10000;
+  let desiredRecords = 20000;
   for (let i = 0; i < desiredRecords; i++) {
     let gameId = getRandomInt(100);
     let authorId = getRandomInt(100);
-    let date = faker.date.between('2016-01-01', '2020-08-05').toISOString().substring(0,10);
+    let date = faker.date.between('2020-05-01', '2020-08-12').toISOString().split('T')[0];
     let text = faker.lorem.paragraph();
     let reviewType = getRandomTinyInt();
     let hrsAtReview = getRandomHrs(300);
@@ -72,13 +73,16 @@ var seedAwardsTable = function() {
 //
 var seedReviewsAwardsTable = function() {
   let desiredRecords = 100000;
+  var count = 0;
   for (let i = 0; i < desiredRecords; i++) {
     let reviewId = getRandomInt(10000);
-    let awardId = getRandomInt(8);
+    let awardId = getRandomInt(3);
     let authorId = getRandomInt(100);
     connection.query(
       `INSERT INTO reviews_awards (review_id, award_id, author_id)
       VALUES (${reviewId},${awardId},${authorId})`);
+    count++;
+    console.log(count);
   }
   console.log('done reviews_awards')
 }
@@ -102,3 +106,4 @@ seedReviewsTable();
 seedAwardsTable();
 seedReviewsAwardsTable();
 seedAuthorsGamesTable();
+console.log('please wait ~1 minute for seeding of reviews_awards to complete');
