@@ -1,5 +1,5 @@
 const express = require('express');
-const  bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const db = require('../database');
 
 const app = express();
@@ -25,7 +25,7 @@ app.get('/api/recentReviews/:id', (req, res) => {
       res.send(err);
       res.end();
     })
-})
+});
 
 app.get('/api/helpfulReviews/:id', (req, res) => {
   let gameId = req.params.id;
@@ -38,7 +38,59 @@ app.get('/api/helpfulReviews/:id', (req, res) => {
       res.send(err);
       res.end();
     })
-})
+});
+
+app.get('/api/reviewCount/:id', (req, res) => {
+  let gameId = req.params.id;
+  db.getReviewCount(gameId)
+    .then((count) => {
+      res.send(count);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
+
+app.get('/api/recentReviewCount/:id', (req, res) => {
+  let gameId = req.params.id;
+  db.getRecentReviewCount(gameId)
+    .then((count) => {
+      res.send(count);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
+
+app.get('/api/reviewSentiment/:id', (req, res) => {
+  let gameId = req.params.id;
+  db.getReviewSentiment(gameId)
+    .then((sentiment) => {
+      res.send(sentiment);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
+
+app.get('/api/recentReviewSentiment/:id', (req, res) => {
+  let gameId = req.params.id;
+  db.getRecentReviewSentiment(gameId)
+    .then((sentiment) => {
+      res.send(sentiment);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
 
 app.post('/api/awards', (req, res) => {
   let reviewId = req.body.id;
@@ -52,6 +104,7 @@ app.post('/api/awards', (req, res) => {
       res.end();
     });
   });
+
 
 
 // app.get('/api/allReviews', (req, res) => {

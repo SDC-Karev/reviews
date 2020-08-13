@@ -152,7 +152,7 @@ class FilterBar extends React.Component {
               <option value='summary'>Summary</option>
               <option value='summary'>Most Helfpul</option>
               <option value='summary'>Recent</option>
-              <option value='summary'>Funny</option>
+              <option value='summary'>Helpful</option>
             </DisplayAsSelect>
           </DisplayAs>
           <GraphButtonContainer>

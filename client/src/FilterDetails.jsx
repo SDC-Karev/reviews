@@ -43,6 +43,12 @@ class FilterDetails extends React.Component {
   }
 
   render() {
+    if(this.props.reviewCount === undefined) {
+      console.log('loading');
+      return <span>Loading...</span>;
+    } else {
+      var count = this.props.reviewCount[0][`count(*)`];
+    }
     return (
       <FilterInfoContainer>
         {/* <div>
@@ -51,7 +57,7 @@ class FilterDetails extends React.Component {
         <FilterScore>
           <div>
             <span>
-              Showing <b>10</b> reviews that match the filters above (
+              Showing <b>{count}</b> reviews that match the filters above (
             </span>
 
               <ReviewSummary> Mostly Positive </ReviewSummary>
