@@ -28,11 +28,25 @@ const FilterScore = styled.div`
   font-size: 15px;
 `;
 
-const ReviewSummary = styled.span`
-  cursor: help;
-  font-family: "Motiva Sans", Sans-serif;
-  font-weight: bold;
+const SummaryTextPositive = styled.span`
   color: #66C0F4;
+  cursor: help;
+    font-family: "Motiva Sans", Sans-serif;
+    font-weight: bold;
+`;
+
+const SummaryTextMixed = styled.span`
+  color: #a8926a;
+  cursor: help;
+    font-family: "Motiva Sans", Sans-serif;
+    font-weight: bold;
+`;
+
+const SummaryTextNegative = styled.span`
+  color: #c35c2c;
+  cursor: help;
+    font-family: "Motiva Sans", Sans-serif;
+    font-weight: bold;
 `;
 
 class FilterDetails extends React.Component {
@@ -44,23 +58,31 @@ class FilterDetails extends React.Component {
 
   render() {
     if(this.props.reviewCount === undefined) {
-      console.log('loading');
       return <span>Loading...</span>;
     } else {
       var count = this.props.reviewCount[0][`count(*)`];
     }
+    var reviewSentiment = this.props.reviewSentiment;
+    let summary;
+      if (reviewSentiment < .65) {
+        summary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
+      } else if (reviewSentiment >= .65 && reviewSentiment < .68) {
+        summary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
+      } else if (reviewSentiment >= .68 && reviewSentiment < .72) {
+        summary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
+      } else if (reviewSentiment >= .72 && reviewSentiment < .75) {
+        summary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
+      } else {
+        summary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
+      }
     return (
       <FilterInfoContainer>
-        {/* <div>
-          <FiltersTitle>Filters</FiltersTitle>
-        </div> */}
         <FilterScore>
           <div>
             <span>
               Showing <b>{count}</b> reviews that match the filters above (
             </span>
-
-              <ReviewSummary> Mostly Positive </ReviewSummary>
+            {summary}
              )
           </div>
         </FilterScore>
