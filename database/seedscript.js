@@ -24,6 +24,7 @@ var seedReviewsTable = function() {
     let authorId = getRandomInt(100);
     let date = faker.date.between('2020-05-01', '2020-08-12').toISOString().split('T')[0];
     let text = faker.lorem.paragraph();
+    //0 good review, 1 bad review
     let reviewType = getRandomTinyInt();
     let hrsAtReview = getRandomHrs(300);
     let purchaseType = getRandomTinyInt();

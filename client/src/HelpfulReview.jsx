@@ -216,7 +216,7 @@ class HelpfulReview extends React.Component {
     let thumb;
     let recommended;
     let source = <img src='https://store.cloudflare.steamstatic.com/public/shared/images/userreviews/icon_review_steam.png'></img>;
-    if (this.props.review.review_type === 1) {
+    if (this.props.review.review_type === 0) {
       thumb = <img src='https://store.cloudflare.steamstatic.com/public/shared/images/userreviews/icon_thumbsUp_v6.png' width='40' height='40'></img>;
       recommended = 'Recommended';
     } else {
