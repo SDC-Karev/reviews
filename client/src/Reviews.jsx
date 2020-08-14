@@ -8,7 +8,7 @@ import Header from './Header.jsx';
 import FilterBar from './FilterBar.jsx'
 import FilterDetails from './FilterDetails.jsx'
 
-let gameId = 9;
+let gameId = 3;
 
 const Body = styled.div`
 margin-bottom: 32px;
@@ -104,14 +104,16 @@ class Reviews extends React.Component {
   getReviewSentiment() {
     axios.get(`api/reviewSentiment/${gameId}`)
     .then((sentiment) => {
-      this.setState({reviewSentiment: sentiment.data});
+      let revSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
+      this.setState({reviewSentiment: revSent});
     })
   }
 
   getRecentReviewSentiment() {
     axios.get(`api/recentReviewSentiment/${gameId}`)
     .then((sentiment) => {
-      this.setState({recentReviewSentiment: sentiment.data});
+      let recRevSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
+      this.setState({recentReviewSentiment: recRevSent});
     })
   }
 

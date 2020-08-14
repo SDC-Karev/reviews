@@ -102,6 +102,7 @@ const SummaryTextNegative = styled.span`
     line-height: 9px;
     text-shadow: 1px 1px rgba( 0, 0, 0, 0.2 );
 `;
+
 const reviewSpan = styled.span`
   display: inline-block;
   margin-right: 15px;
@@ -122,21 +123,35 @@ class Header extends React.Component {
 
   render() {
     if(this.props.reviewCount === undefined || this.props.recentReviewCount === undefined || this.props.reviewSentiment === undefined || this.props.recentReviewSentiment === undefined) {
-      console.log('loading');
       return <span>Loading...</span>;
     } else {
       var count = this.props.reviewCount[0][`count(*)`];
       var recentCount = this.props.recentReviewCount[0][`count(*)`];
-      var reviewSentiment = this.props.reviewSentiment[0][`count(*)`] / (this.props.reviewSentiment[0][`count(*)`] + this.props.reviewSentiment[1][`count(*)`]);
-      console.log(reviewSentiment);
-      var recentReviewSentiment = this.props.recentReviewSentiment[0][`count(*)`] / (this.props.recentReviewSentiment[0][`count(*)`] + this.props.recentReviewSentiment[1][`count(*)`]);
-      console.log(reviewSentiment);
-      console.log(recentReviewSentiment);
+      var reviewSentiment = this.props.reviewSentiment;
+      var recentReviewSentiment = this.props.recentReviewSentiment;
       let summary;
-      if (reviewSentiment < .75) {
+      if (reviewSentiment < .65) {
+        summary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
+      } else if (reviewSentiment >= .65 && reviewSentiment < .68) {
         summary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
+      } else if (reviewSentiment >= .68 && reviewSentiment < .72) {
+        summary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
+      } else if (reviewSentiment >= .72 && reviewSentiment < .75) {
+        summary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
       } else {
-        summary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>
+        summary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
+      }
+      let recentSummary;
+      if (recentReviewSentiment < .65) {
+        recentSummary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
+      } else if (recentReviewSentiment >= .65 && recentReviewSentiment < .68) {
+        recentSummary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
+      } else if (recentReviewSentiment >= .68 && recentReviewSentiment < .72) {
+        recentSummary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
+      } else if (recentReviewSentiment >= .72 && recentReviewSentiment < .75) {
+        recentSummary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
+      } else {
+        recentSummary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
       }
 
       return(
@@ -156,7 +171,7 @@ class Header extends React.Component {
               <RecentSummary>
                 <SummarySection>
                   <SummaryTitle>Recent Reviews:</SummaryTitle>
-                  <SummaryTextPositive>Mostly Positive</SummaryTextPositive>
+                  {recentSummary}
                   <span> ({recentCount} reviews)</span>
                 </SummarySection>
               </RecentSummary>
