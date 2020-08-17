@@ -9,15 +9,20 @@
     "start": "node server/index.js --watch",
     "build:dev": "webpack -d --watch",
     "seed": "node database/seedscript.js",
-    "build": "webpack --config webpack.config.js"
+    "build:old": "webpack --config webpack.config.js",
+    "build": "webpack -d"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hrr47-FEC-Bailey/reviews.git"
   },
   "jest": {
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
-    "setupFiles": ["./src/setupTests.js"]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFiles": [
+      "./src/setupTests.js"
+    ]
   },
   "author": "Mike Shertz",
   "license": "ISC",

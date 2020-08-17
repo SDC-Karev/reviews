@@ -82,7 +82,6 @@ var seedReviewsAwardsTable = function() {
     connection.query(
       `INSERT INTO reviews_awards (review_id, award_id, author_id)
       VALUES (${reviewId},${awardId},${authorId})`);
-    count++;
     console.log(count);
   }
   console.log('done reviews_awards')
