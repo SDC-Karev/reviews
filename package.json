@@ -15,6 +15,10 @@
     "type": "git",
     "url": "git+https://github.com/hrr47-FEC-Bailey/reviews.git"
   },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "setupFiles": ["./src/setupTests.js"]
+  },
   "author": "Mike Shertz",
   "license": "ISC",
   "bugs": {
