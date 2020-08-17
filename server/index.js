@@ -1,9 +1,15 @@
 const express = require('express');
-const  bodyParser = require('body-parser');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const db = require('../database');
 
 const app = express();
 const port = 3004;
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
@@ -14,7 +20,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 
-app.get('/api/recentReviews/:id', (req, res) => {
+app.get('/api/recentReviews/:id', cors(corsOptions), (req, res) => {
   let gameId = req.params.id;
   db.getRecentReviews(gameId)
     .then((reviews) => {
@@ -27,7 +33,7 @@ app.get('/api/recentReviews/:id', (req, res) => {
     })
 })
 
-app.get('/api/helpfulReviews/:id', (req, res) => {
+app.get('/api/helpfulReviews/:id', cors(corsOptions), (req, res) => {
   let gameId = req.params.id;
   db.getHelpfulReviews(gameId)
     .then((reviews) => {
@@ -38,9 +44,65 @@ app.get('/api/helpfulReviews/:id', (req, res) => {
       res.send(err);
       res.end();
     })
+<<<<<<< Updated upstream
 })
+=======
+});
 
-app.post('/api/awards', (req, res) => {
+app.get('/api/reviewCount/:id', cors(corsOptions), (req, res) => {
+  let gameId = req.params.id;
+  db.getReviewCount(gameId)
+    .then((count) => {
+      res.send(count);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
+
+app.get('/api/recentReviewCount/:id', cors(corsOptions), (req, res) => {
+  let gameId = req.params.id;
+  db.getRecentReviewCount(gameId)
+    .then((count) => {
+      res.send(count);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
+
+app.get('/api/reviewSentiment/:id', cors(corsOptions), (req, res) => {
+  let gameId = req.params.id;
+  db.getReviewSentiment(gameId)
+    .then((sentiment) => {
+      res.send(sentiment);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
+
+app.get('/api/recentReviewSentiment/:id', cors(corsOptions), (req, res) => {
+  let gameId = req.params.id;
+  db.getRecentReviewSentiment(gameId)
+    .then((sentiment) => {
+      res.send(sentiment);
+      res.end();
+    })
+    .catch((err) => {
+      res.send(err);
+      res.end();
+    })
+});
+>>>>>>> Stashed changes
+
+app.post('/api/awards', cors(corsOptions), (req, res) => {
   let reviewId = req.body.id;
   db.getAwards(reviewId)
     .then((awards) => {
@@ -54,7 +116,12 @@ app.post('/api/awards', (req, res) => {
   });
 
 
+<<<<<<< Updated upstream
 // app.get('/api/allReviews', (req, res) => {
+=======
+
+// app.get('/api/allReviews', cors(corsOptions), (req, res) => {
+>>>>>>> Stashed changes
 //   db.getAllReviews(1)
 //     .then((reviews) => {
 //         reviews.forEach((review) => {
