@@ -8,7 +8,7 @@ import Header from './Header.jsx';
 import FilterBar from './FilterBar.jsx'
 import FilterDetails from './FilterDetails.jsx'
 
-let gameId = 3;
+let gameId = 9;
 
 const Body = styled.div`
 margin-bottom: 32px;
