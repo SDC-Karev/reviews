@@ -192,7 +192,6 @@ class HelpfulReview extends React.Component {
   }
 
   getAwards() {
-    console.log(this.props.review.review_id);
     axios.post('api/awards', {
       id: this.props.review.review_id
     })

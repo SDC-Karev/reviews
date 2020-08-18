@@ -99,7 +99,7 @@ app.get('/api/recentReviewSentiment/:id', cors(corsOptions), (req, res) => {
 });
 
 app.post('/api/awards', cors(corsOptions), (req, res) => {
-  const reviewId = req.body.id;
+  const reviewId = req.params.id;
   db.getAwards(reviewId)
     .then((awards) => {
       res.send(awards);
