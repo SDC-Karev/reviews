@@ -74,35 +74,35 @@ class Reviews extends React.Component {
   }
 
   getHelpfulReviews() {
-    axios.get(`api/helpfulReviews/${gameId}`)
+    axios.get(`http://localhost:3004/api/helpfulReviews/${gameId}`)
     .then((helpfulReviews) => {
       this.setState({helpfulReviews: helpfulReviews.data});
     })
   }
 
   getRecentReviews() {
-    axios.get(`api/recentReviews/${gameId}`)
+    axios.get(`http://localhost:3004/api/recentReviews/${gameId}`)
     .then((recentReviews) => {
       this.setState({recentReviews: recentReviews.data});
     })
   }
 
   getReviewCount() {
-    axios.get(`api/reviewCount/${gameId}`)
+    axios.get(`http://localhost:3004/api/reviewCount/${gameId}`)
     .then((count) => {
       this.setState({reviewCount: count.data});
     })
   }
 
   getRecentReviewCount() {
-    axios.get(`api/recentReviewCount/${gameId}`)
+    axios.get(`http://localhost:3004/api/recentReviewCount/${gameId}`)
     .then((count) => {
       this.setState({recentReviewCount: count.data});
     })
   }
 
   getReviewSentiment() {
-    axios.get(`api/reviewSentiment/${gameId}`)
+    axios.get(`http://localhost:3004/api/reviewSentiment/${gameId}`)
     .then((sentiment) => {
       let revSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
       this.setState({reviewSentiment: revSent});
@@ -110,7 +110,7 @@ class Reviews extends React.Component {
   }
 
   getRecentReviewSentiment() {
-    axios.get(`api/recentReviewSentiment/${gameId}`)
+    axios.get(`http://localhost:3004/api/recentReviewSentiment/${gameId}`)
     .then((sentiment) => {
       let recRevSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
       this.setState({recentReviewSentiment: recRevSent});

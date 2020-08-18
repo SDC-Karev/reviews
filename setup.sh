@@ -27,12 +27,11 @@ read -p "Enter database password: " password
 mysql --user=$username --password=$password --execute="$sqlExecute"
 echo "
   module.exports = {
-    connectionLimit: 10,
     user: '$username',
     password: '$password',
     database: 'reviews',
     host: 'localhost',
   }
-" > ./server/database/config.js
+" > ./database/config.js
 npm run seed
 echo "Configuration Complete!"
