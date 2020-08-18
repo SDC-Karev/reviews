@@ -95,12 +95,12 @@ CREATE TABLE authors_games (
 -- Foreign Keys
 -- ---
 
-ALTER TABLE reviews ADD FOREIGN KEY (game_id) REFERENCES games (id);
-ALTER TABLE reviews ADD FOREIGN KEY (author_id) REFERENCES authors (id);
-ALTER TABLE reviews_awards ADD FOREIGN KEY (award_id) REFERENCES awards (id);
-ALTER TABLE reviews_awards ADD FOREIGN KEY (author_id) REFERENCES authors (id);
-ALTER TABLE authors_games ADD FOREIGN KEY (author_id) REFERENCES authors (id);
-ALTER TABLE authors_games ADD FOREIGN KEY (game_id) REFERENCES games (id);
+-- ALTER TABLE reviews ADD FOREIGN KEY (game_id) REFERENCES games (id);
+-- ALTER TABLE reviews ADD FOREIGN KEY (author_id) REFERENCES authors (id);
+-- ALTER TABLE reviews_awards ADD FOREIGN KEY (award_id) REFERENCES awards (id);
+-- ALTER TABLE reviews_awards ADD FOREIGN KEY (author_id) REFERENCES authors (id);
+-- ALTER TABLE authors_games ADD FOREIGN KEY (author_id) REFERENCES authors (id);
+-- ALTER TABLE authors_games ADD FOREIGN KEY (game_id) REFERENCES games (id);
 
 -- ---
 -- Table Properties
