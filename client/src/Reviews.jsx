@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import HelpfulReviews from './HelpfulReviews.jsx';
 import RecentReviews from './RecentReviews.jsx';
 import Header from './Header.jsx';
-import FilterBar from './FilterBar.jsx'
-import FilterDetails from './FilterDetails.jsx'
+import FilterBar from './FilterBar.jsx';
+import FilterDetails from './FilterDetails.jsx';
 
-let gameId = 7;
+const gameId = 7;
 
 const Body = styled.div`
 width: 940px;
@@ -76,54 +76,56 @@ class Reviews extends React.Component {
 
   getHelpfulReviews() {
     axios.get(`http://localhost:3004/api/helpfulReviews/${gameId}`)
-    .then((helpfulReviews) => {
-      this.setState({helpfulReviews: helpfulReviews.data});
-    })
+      .then((helpfulReviews) => {
+        this.setState({ helpfulReviews: helpfulReviews.data });
+      });
   }
 
   getRecentReviews() {
     axios.get(`http://localhost:3004/api/recentReviews/${gameId}`)
-    .then((recentReviews) => {
-      this.setState({recentReviews: recentReviews.data});
-    })
+      .then((recentReviews) => {
+        this.setState({ recentReviews: recentReviews.data });
+      });
   }
 
   getReviewCount() {
     axios.get(`http://localhost:3004/api/reviewCount/${gameId}`)
-    .then((count) => {
-      this.setState({reviewCount: count.data});
-    })
+      .then((count) => {
+        this.setState({ reviewCount: count.data });
+      });
   }
 
   getRecentReviewCount() {
     axios.get(`http://localhost:3004/api/recentReviewCount/${gameId}`)
-    .then((count) => {
-      this.setState({recentReviewCount: count.data});
-    })
+      .then((count) => {
+        this.setState({ recentReviewCount: count.data });
+      });
   }
 
   getReviewSentiment() {
     axios.get(`http://localhost:3004/api/reviewSentiment/${gameId}`)
-    .then((sentiment) => {
-      let revSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
-      this.setState({reviewSentiment: revSent});
-    })
+      .then((sentiment) => {
+        const revSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
+        const revSentPct = (Math.floor(revSent * 100)) + '%';
+        this.setState({ reviewSentiment: revSent, percent: revSentPct });
+      });
   }
 
   getRecentReviewSentiment() {
     axios.get(`http://localhost:3004/api/recentReviewSentiment/${gameId}`)
-    .then((sentiment) => {
-      let recRevSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
-      this.setState({recentReviewSentiment: recRevSent});
-    })
+      .then((sentiment) => {
+        const recRevSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
+        const recRevSentPct = (Math.floor(recRevSent * 100)) + '%';
+        this.setState({ recentReviewSentiment: recRevSent, recentPercent: recRevSentPct });
+      });
   }
 
   render() {
     return (
       <Body>
-          <Header reviewCount={this.state.reviewCount} recentReviewCount={this.state.recentReviewCount} reviewSentiment={this.state.reviewSentiment} recentReviewSentiment={this.state.recentReviewSentiment}/>
+          <Header reviewCount={this.state.reviewCount} recentReviewCount={this.state.recentReviewCount} reviewSentiment={this.state.reviewSentiment} recentReviewSentiment={this.state.recentReviewSentiment} reviewPercent ={this.state.percent} recPercent ={this.state.recentPercent}/>
           <FilterBar />
-          <FilterDetails reviewCount={this.state.reviewCount} reviewSentiment={this.state.reviewSentiment}/>
+          <FilterDetails reviewCount={this.state.reviewCount} reviewSentiment={this.state.reviewSentiment} reviewPercent={this.state.percent}/>
           <LeftCol>
             <ReviewsSubHeader>
               Most Helpful Reviews
