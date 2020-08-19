@@ -187,35 +187,34 @@ class HelpfulReview extends React.Component {
     this.getAwards.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getAwards();
   }
 
   getAwards() {
-    axios.post('http://localhost:3004/api/awards', {
-      id: this.props.review.review_id
-    })
-    .then((awardsResults) => {
-      var awards = {};
-      awardsResults.data.forEach((award) => {
-        var key = award.name;
-        var value = award['count(*)'];
-        awards[key] = value;
+    const id = this.props.review.review_id;
+    axios.get(`http://localhost:3004/api/awards/${id}`)
+      .then((awardsResults) => {
+        const awards = {};
+        awardsResults.data.forEach((award) => {
+          const key = award.name;
+          const value = award['count(*)'];
+          awards[key] = value;
+        });
+        this.setState(awards);
       })
-      this.setState(awards);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
     if (!this.props.review) {
-      return <span>Loading...</span>
+      return <span>Loading...</span>;
     }
     let thumb;
     let recommended;
-    let source = <img src='https://store.cloudflare.steamstatic.com/public/shared/images/userreviews/icon_review_steam.png'></img>;
+    const source = <img src='https://store.cloudflare.steamstatic.com/public/shared/images/userreviews/icon_review_steam.png'></img>;
     if (this.props.review.review_type === 0) {
       thumb = <img src='https://store.cloudflare.steamstatic.com/public/shared/images/userreviews/icon_thumbsUp_v6.png' width='40' height='40'></img>;
       recommended = 'Recommended';
@@ -223,8 +222,8 @@ class HelpfulReview extends React.Component {
       thumb = <img src='https://store.cloudflare.steamstatic.com/public/shared/images/userreviews/icon_thumbsDown_v6.png' width='40' heigh='40'></img>;
       recommended = 'Not Recommended';
     }
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let reviewDate = months[Number(this.props.review.date.substring(5,7) - 1)] + ' ' + this.props.review.date.substring(8, 10);
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const reviewDate = months[Number(this.props.review.date.substring(5,7) - 1)] + ' ' + this.props.review.date.substring(8, 10);
     return (
       <ReviewBox>
         <ReviewLeftCol>
@@ -261,7 +260,7 @@ class HelpfulReview extends React.Component {
           </ControlBlock>
         </ReviewRightCol>
       </ReviewBox>
-    )
+    );
   }
 }
 
