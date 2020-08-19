@@ -171,6 +171,10 @@ const Button = styled.a`
   color: #66c0f4;
   background: #212c3d;
   margin-right: 5px;
+  &:hover {
+    color: #fff;
+    background: #67c1f5;
+  }
 `;
 
 const VoteInfo = styled.div`

@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+// import ReactDOM from 'react-dom';
+// import axios from 'axios';
 import styled from 'styled-components';
 
 const FilterInfoContainer = styled.div`
@@ -9,16 +9,16 @@ const FilterInfoContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-const FiltersTitle = styled.div`
-  font-family: "Motiva Sans", Sans-serif;
-  font-weight: normal;
-  text-transform: none;
-  font-size: 15px;
-  color: #c6d4df;
-  padding-bottom: 5px;
-  display: inline-block;
-  margin-right: 5px;
-`;
+// const FiltersTitle = styled.div`
+//   font-family: "Motiva Sans", Sans-serif;
+//   font-weight: normal;
+//   text-transform: none;
+//   font-size: 15px;
+//   color: #c6d4df;
+//   padding-bottom: 5px;
+//   display: inline-block;
+//   margin-right: 5px;
+// `;
 
 const FilterScore = styled.div`
   display: block;
@@ -53,28 +53,26 @@ class FilterDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-
   }
 
   render() {
     if(this.props.reviewCount === undefined) {
       return <span>Loading...</span>;
-    } else {
-      var count = this.props.reviewCount[0][`count(*)`];
     }
-    var reviewSentiment = this.props.reviewSentiment;
+    const count = this.props.reviewCount[0][`count(*)`];
+    const reviewSentiment = this.props.reviewSentiment;
     let summary;
-      if (reviewSentiment < .65) {
-        summary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
-      } else if (reviewSentiment >= .65 && reviewSentiment < .68) {
-        summary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
-      } else if (reviewSentiment >= .68 && reviewSentiment < .72) {
-        summary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
-      } else if (reviewSentiment >= .72 && reviewSentiment < .75) {
-        summary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
-      } else {
-        summary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
-      }
+    if (reviewSentiment < 0.65) {
+      summary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
+    } else if (reviewSentiment >= 0.65 && reviewSentiment < 0.68) {
+      summary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
+    } else if (reviewSentiment >= 0.68 && reviewSentiment < 0.72) {
+      summary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
+    } else if (reviewSentiment >= 0.72 && reviewSentiment < 0.75) {
+      summary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
+    } else {
+      summary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
+    }
     return (
       <FilterInfoContainer>
         <FilterScore>
@@ -83,12 +81,12 @@ class FilterDetails extends React.Component {
               Showing <b>{count}</b> reviews that match the filters above (
             </span>
             {summary}
-             )
+            )
           </div>
         </FilterScore>
 
       </FilterInfoContainer>
-    )
+    );
   }
 }
 

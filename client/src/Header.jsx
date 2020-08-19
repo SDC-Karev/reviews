@@ -103,84 +103,83 @@ const SummaryTextNegative = styled.span`
     text-shadow: 1px 1px rgba( 0, 0, 0, 0.2 );
 `;
 
-const reviewSpan = styled.span`
-  display: inline-block;
-  margin-right: 15px;
-  color: #8ba6b6;
-  min-width: 320px;
-  position: relative;
-  min-height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-`;
+// const reviewSpan = styled.span`
+//   display: inline-block;
+//   margin-right: 15px;
+//   color: #8ba6b6;
+//   min-width: 320px;
+//   position: relative;
+//   min-height: 100%;
+//   font-family: Arial, Helvetica, sans-serif;
+//   font-size: 12px;
+// `;
+
+const tooltip = 'data-tooltip-html=`${reviewPercent} are positive`';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-
   }
 
   render() {
     if(this.props.reviewCount === undefined || this.props.recentReviewCount === undefined || this.props.reviewSentiment === undefined || this.props.recentReviewSentiment === undefined) {
       return <span>Loading...</span>;
-    } else {
-      var count = this.props.reviewCount[0][`count(*)`];
-      var recentCount = this.props.recentReviewCount[0][`count(*)`];
-      var reviewSentiment = this.props.reviewSentiment;
-      var recentReviewSentiment = this.props.recentReviewSentiment;
-      let summary;
-      if (reviewSentiment < .65) {
-        summary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
-      } else if (reviewSentiment >= .65 && reviewSentiment < .68) {
-        summary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
-      } else if (reviewSentiment >= .68 && reviewSentiment < .72) {
-        summary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
-      } else if (reviewSentiment >= .72 && reviewSentiment < .75) {
-        summary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
-      } else {
-        summary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
-      }
-      let recentSummary;
-      if (recentReviewSentiment < .65) {
-        recentSummary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
-      } else if (recentReviewSentiment >= .65 && recentReviewSentiment < .68) {
-        recentSummary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
-      } else if (recentReviewSentiment >= .68 && recentReviewSentiment < .72) {
-        recentSummary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
-      } else if (recentReviewSentiment >= .72 && recentReviewSentiment < .75) {
-        recentSummary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
-      } else {
-        recentSummary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
-      }
-
-      return(
-        <div>
-        <UserReviewsHeader>Customer Reviews</UserReviewsHeader>
-          <HeaderTop>
-          </HeaderTop>
-            <ReviewSummaryBar>
-              <OverallSummary>
-                <SummarySection>
-                  <SummaryTitle>Overall Reviews:</SummaryTitle>
-                  {summary}
-                  {/* <SummaryTextPositive>Mostly Positive</SummaryTextPositive> */}
-                  <span> ({count || `loading`} reviews)</span>
-                </SummarySection>
-              </OverallSummary>
-              <RecentSummary>
-                <SummarySection>
-                  <SummaryTitle>Recent Reviews:</SummaryTitle>
-                  {recentSummary}
-                  <span> ({recentCount} reviews)</span>
-                </SummarySection>
-              </RecentSummary>
-            </ReviewSummaryBar>
-        </div>
-      );
     }
-  }
+    const count = this.props.reviewCount[0][`count(*)`];
+    const recentCount = this.props.recentReviewCount[0][`count(*)`];
+    const reviewSentiment = this.props.reviewSentiment;
+    const recentReviewSentiment = this.props.recentReviewSentiment;
+    let summary;
+    if (reviewSentiment < 0.65) {
+      summary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
+    } else if (reviewSentiment >= 0.65 && reviewSentiment < 0.68) {
+      summary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
+    } else if (reviewSentiment >= 0.68 && reviewSentiment < 0.72) {
+      summary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
+    } else if (reviewSentiment >= 0.72 && reviewSentiment < 0.75) {
+      summary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
+    } else {
+      summary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
+    }
+    let recentSummary;
+    if (recentReviewSentiment < 0.65) {
+      recentSummary = <SummaryTextNegative>Overwhelmingly Negative</SummaryTextNegative>;
+    } else if (recentReviewSentiment >= 0.65 && recentReviewSentiment < 0.68) {
+      recentSummary = <SummaryTextNegative>Mostly Negative</SummaryTextNegative>;
+    } else if (recentReviewSentiment >= 0.68 && recentReviewSentiment < 0.72) {
+      recentSummary = <SummaryTextMixed>Mixed</SummaryTextMixed>;
+    } else if (recentReviewSentiment >= 0.72 && recentReviewSentiment < 0.75) {
+      recentSummary = <SummaryTextPositive>Mostly Positive</SummaryTextPositive>;
+    } else {
+      recentSummary = <SummaryTextPositive>Overwhelmingly Positive</SummaryTextPositive>;
+    }
 
+    return(
+      <div>
+        <UserReviewsHeader>Customer Reviews</UserReviewsHeader>
+        <HeaderTop>
+        </HeaderTop>
+        <ReviewSummaryBar>
+          <OverallSummary>
+            <SummarySection>
+              <SummaryTitle>Overall Reviews:</SummaryTitle>
+              {summary}
+              {/* <SummaryTextPositive>Mostly Positive</SummaryTextPositive> */}
+              <span> ({count || `loading`} reviews)</span>
+            </SummarySection>
+          </OverallSummary>
+          <RecentSummary>
+            <SummarySection>
+              <SummaryTitle>Recent Reviews:</SummaryTitle>
+              {recentSummary}
+              <span> ({recentCount} reviews)</span>
+            </SummarySection>
+          </RecentSummary>
+        </ReviewSummaryBar>
+      </div>
+    );
+}
 }
 
 export default Header;
