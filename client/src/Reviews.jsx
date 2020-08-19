@@ -11,7 +11,6 @@ import FilterDetails from './FilterDetails.jsx'
 let gameId = 7;
 
 const Body = styled.div`
-margin-bottom: 32px;
 width: 940px;
 margin: 0 auto;
 display: block;
@@ -19,6 +18,8 @@ font-family: Arial, Helvetica, sans-serif;
 color: #c6d4df;
 background-color: #1b2838;
 font-size: 12px;
+position: relative;
+float: left;
 `;
 
 const LeftCol = styled(Body)`
