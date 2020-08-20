@@ -8,7 +8,7 @@ import Header from './Header.jsx';
 import FilterBar from './FilterBar.jsx';
 import FilterDetails from './FilterDetails.jsx';
 
-const gameId = 7;
+const gameId = 9;
 
 const Body = styled.div`
 width: 940px;

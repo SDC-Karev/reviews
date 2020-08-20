@@ -177,6 +177,42 @@ const Button = styled.a`
   }
 `;
 
+const ButtonSpan = styled.span`
+  padding: 0 5px;
+`;
+
+const Icon = styled.i`
+  background: url(https://store.cloudflare.steamstatic.com/public/shared/images/buttons/icons_16.png?v=5);
+  vertical-align: middle;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+`;
+
+const ThumbsUp = styled(Icon)`
+&&& {
+  background-position: -112px -16px;
+}
+`;
+
+const ThumbsDown = styled(Icon)`
+&&& {
+  background-position: -64px -16px;
+}
+`;
+
+const Smiley = styled(Icon)`
+&&& {
+  background-position: -208px -16px;
+}
+`;
+
+const Award = styled.img`
+  vertical-align: middle;
+  height: 16px;
+  margin-right: 2px;
+`;
+
 const VoteInfo = styled.div`
   padding: 0px 9px 8px 0px;
   font-size: 12px;
@@ -251,10 +287,30 @@ class HelpfulReview extends React.Component {
           <ControlBlock>
             <ControlBlockText>Was this review helpful?</ControlBlockText>
             <VoteContainer>
-              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>Yes</Button>
-              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>No</Button>
-              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>Funny</Button>
-              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>Award</Button>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+                <ButtonSpan>
+                  <ThumbsUp></ThumbsUp>
+                  Yes
+                </ButtonSpan>
+              </Button>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+                <ButtonSpan>
+                  <ThumbsDown></ThumbsDown>
+                  No
+                </ButtonSpan>
+              </Button>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+                <ButtonSpan>
+                  <Smiley></Smiley>
+                  Funny
+                </ButtonSpan>
+              </Button>
+              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+                <ButtonSpan>
+                  <Award src='https://store.cloudflare.steamstatic.com/public/shared/images//award_icon.svg'></Award>
+                   Award
+                </ButtonSpan>
+              </Button>
             </VoteContainer>
             <VoteInfo>
               {this.state.helpful || 0} people found this review helpful

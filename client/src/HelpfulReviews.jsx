@@ -18,9 +18,9 @@ class HelpfulReviews extends React.Component {
     }
     return(
       <div>
-        {this.props.reviews.map((review) => {
+        {this.props.reviews.map((review, i) => {
           return (
-            <HelpfulReview review={review}/>
+            <HelpfulReview review={review} key={i}/>
           )
         })}
       </div>

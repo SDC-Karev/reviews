@@ -18,9 +18,9 @@ class RecentReviews extends React.Component {
     }
     return(
       <div className='right-col recent_reviews'>
-        {this.props.reviews.map((review) => {
+        {this.props.reviews.map((review, i) => {
           return (
-            <RecentReview review={review}/>
+            <RecentReview review={review} key={i}/>
           )
         })}
       </div>
