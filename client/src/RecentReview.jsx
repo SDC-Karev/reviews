@@ -123,6 +123,7 @@ const Button = styled.a`
 
 const ButtonSpan = styled.span`
   padding: 0 5px;
+  line-height: 20px;
 `;
 
 const Icon = styled.i`
