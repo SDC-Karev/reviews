@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
+const url = '3.129.63.238';
+// change to localhost when working locally
+// also needs to be changed in Reviews
+
 const ReviewBox = styled.div`
   background-color: rgba( 0, 0, 0, 0.2 );
   margin-bottom: 26px;
@@ -234,7 +238,7 @@ class HelpfulReview extends React.Component {
 
   getAwards() {
     const id = this.props.review.review_id;
-    axios.get(`http://localhost:3004/api/awards/${id}`)
+    axios.get(`http://${url}:3004/api/awards/${id}`)
       .then((awardsResults) => {
         const awards = {};
         awardsResults.data.forEach((award) => {
