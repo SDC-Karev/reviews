@@ -9,6 +9,8 @@ import FilterBar from './FilterBar.jsx';
 import FilterDetails from './FilterDetails.jsx';
 
 const gameId = 9;
+const url = '3.129.63.238';
+// change to localhost when working locally
 
 const Body = styled.div`
 width: 940px;
@@ -75,48 +77,66 @@ class Reviews extends React.Component {
   }
 
   getHelpfulReviews() {
-    axios.get(`http://localhost:3004/api/helpfulReviews/${gameId}`)
+    axios.get(`http://${url}:3004/api/helpfulReviews/${gameId}`)
       .then((helpfulReviews) => {
         this.setState({ helpfulReviews: helpfulReviews.data });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   getRecentReviews() {
-    axios.get(`http://localhost:3004/api/recentReviews/${gameId}`)
+    axios.get(`http://${url}:3004/api/recentReviews/${gameId}`)
       .then((recentReviews) => {
         this.setState({ recentReviews: recentReviews.data });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   getReviewCount() {
-    axios.get(`http://localhost:3004/api/reviewCount/${gameId}`)
+    axios.get(`http://${url}:3004/api/reviewCount/${gameId}`)
       .then((count) => {
         this.setState({ reviewCount: count.data });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   getRecentReviewCount() {
-    axios.get(`http://localhost:3004/api/recentReviewCount/${gameId}`)
+    axios.get(`http://${url}:3004/api/recentReviewCount/${gameId}`)
       .then((count) => {
         this.setState({ recentReviewCount: count.data });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   getReviewSentiment() {
-    axios.get(`http://localhost:3004/api/reviewSentiment/${gameId}`)
+    axios.get(`http://${url}:3004/api/reviewSentiment/${gameId}`)
       .then((sentiment) => {
         const revSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
         const revSentPct = (Math.floor(revSent * 100)) + '%';
         this.setState({ reviewSentiment: revSent, percent: revSentPct });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   getRecentReviewSentiment() {
-    axios.get(`http://localhost:3004/api/recentReviewSentiment/${gameId}`)
+    axios.get(`http://${url}:3004/api/recentReviewSentiment/${gameId}`)
       .then((sentiment) => {
         const recRevSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
         const recRevSentPct = (Math.floor(recRevSent * 100)) + '%';
         this.setState({ recentReviewSentiment: recRevSent, recentPercent: recRevSentPct });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -135,18 +155,17 @@ class Reviews extends React.Component {
               <HelpfulReviews reviews={this.state.helpfulReviews}/>
             </div>
           </LeftCol>
-          <RightCol>
-            <ReviewsSubHeader>
-              Recently Posted
-            </ReviewsSubHeader>
-            <div>
-              <RecentReviews reviews={this.state.recentReviews}/>
-            </div>
-          </RightCol>
+        <RightCol>
+          <ReviewsSubHeader>
+            Recently Posted
+          </ReviewsSubHeader>
+          <div>
+            <RecentReviews reviews={this.state.recentReviews}/>
+          </div>
+        </RightCol>
       </Body>
     );
   }
-
 }
 
 export default Reviews;
