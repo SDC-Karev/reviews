@@ -25,8 +25,8 @@ To test
 
 How review sentiment is calculated
 
-The db is seeded with a biased function that produces more positive than negative ratings.  Below is a sample set of 20 reviews and their positive/negative review counts.
-review_id	  positive	  negative	  total       positivity %
+The db is seeded with a biased function that produces more positive than negative ratings.  Below is a sample set of 20 games and their positive/negative review counts.
+game_id	  positive	  negative	  total       positivity %
 3	          143	        47	        190	        0.7526315789
 9	          157	        53	        210	        0.7476190476
 2	          150       	52	        202	        0.7425742574
