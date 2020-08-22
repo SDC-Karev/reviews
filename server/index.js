@@ -5,33 +5,17 @@ const bodyParser = require('body-parser');
 const db = require('../database');
 
 const app = express();
-const port = 3004;
+app.use(bodyParser.json());
+const port = process.env.PORT || 3004;
 app.use(cors());
-
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
-// const allowlist = ['http://localhost:3000', 'http://18.191.56.232:3000/'];
-// const corsOptionsDelegate = function(req, callback) {
-//   let corsOptions;
-//   if (allowlist.indexOf(req.header('Origin')) !== -1) {
-//     corsOptions = { origin: true };
-//   } else {
-//     corsOptions = { origin: false };
-//   }
-//   callback(null, corsOptions);
-// }
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
-app.use(bodyParser.json());
-// UNCOMMENT FOR REACT
-app.use(express.static(__dirname + '/../client/dist'));
+app.use('/dist', express.static(__dirname + '/../client/dist'));
+app.use('/item/:user', express.static(__dirname + '/../client/public'));
 
-// cors(corsOptions),
 app.get('/api/recentReviews/:id', (req, res) => {
   const gameId = req.params.id;
   db.getRecentReviews(gameId)

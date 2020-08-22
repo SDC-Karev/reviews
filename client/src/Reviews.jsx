@@ -11,6 +11,7 @@ import FilterDetails from './FilterDetails.jsx';
 const gameId = 9;
 const url = '3.129.63.238';
 // change to localhost when working locally
+// also needs to be changed in HelpfulReview
 
 const Body = styled.div`
 width: 940px;
