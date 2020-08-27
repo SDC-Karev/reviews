@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const mysqlConfig = require('./config.js');
+const faker = require("faker");
 
 const connection = mysql.createConnection(mysqlConfig);
 
@@ -7,7 +8,7 @@ let today = new Date();
 today.setMonth(today.getMonth() - 1);
 let recentDate = today.toISOString().split('T')[0];
 
-
+// get route
 const getRecentReviews = function(gameId) {
   return new Promise((resolve, reject) => {
     connection.query(
@@ -25,6 +26,66 @@ const getRecentReviews = function(gameId) {
     });
   })
 };
+
+// post route
+const postRecentReviews = function(gameId, authorId, date, text, reviewType, hrsAtReview, purchaseType, lang, earlyAccess) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `INSERT INTO reviews (game_id, author_id, date, text, review_type, hrs_at_review, purchase_type, lang, early_access)
+        VALUES (${gameId},${authorId},'${date}','${text}',${reviewType},${hrsAtReview},${purchaseType},'${lang}',${earlyAccess})`, function (err, reviews) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(reviews);
+      }
+    });
+  })
+}
+
+// update route
+const updateReview = function (game_id, author_id, date, text, review_type, hrs_at_review, purchase_type, lang, early_access, review_id) {
+  const query = `UPDATE reviews
+SET
+    game_id = ${game_id},
+    author_id = ${author_id},
+    date = '${date}',
+    text = '${text}',
+    review_type = ${review_type},
+    hrs_at_review = ${hrs_at_review},
+    purchase_type = ${purchase_type},
+    lang = '${lang}',
+    early_access = ${early_access}
+WHERE
+    id = ${review_id};`
+
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+}
+
+// delete route
+const deleteReview = function(reviewId) {
+  const query = `delete from reviews where id = ${reviewId}`;
+  return new Promise((resolve, reject) => {
+    connection.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
+
+
 
 const getHelpfulReviews = function(gameId) {
   return new Promise((resolve, reject) => {
@@ -164,5 +225,8 @@ module.exports = {
   getReviewCount,
   getReviewSentiment,
   getRecentReviewSentiment,
-  getRecentReviewCount
+  getRecentReviewCount,
+  postRecentReviews,
+  updateReview,
+  deleteReview
 }

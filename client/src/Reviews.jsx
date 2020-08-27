@@ -9,7 +9,8 @@ import FilterBar from './FilterBar.jsx';
 import FilterDetails from './FilterDetails.jsx';
 
 const gameId = 9;
-const url = '3.129.63.238';
+// const url = '3.129.63.238';
+const url = 'localhost';
 // change to localhost when working locally
 
 const Body = styled.div`

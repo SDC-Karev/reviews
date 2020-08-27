@@ -45,6 +45,46 @@ app.get('/api/recentReviews/:id', (req, res) => {
     });
 });
 
+app.post('/api/recentReviews/:id', (req, res) => {
+  const gameId = req.params.id;
+  const b = req.body;
+  const args = [gameId, b.authorId, b.date, b.text, b.reviewType, b.hrsAtReview, b.purchaseType, b.lang, b.earlyAccess];
+
+  db.postRecentReviews(...args)
+    .then((result) => {
+      res.send('Added review');
+    })
+    .catch((err) => {
+      res.send('something went wrong, could not post new review')
+    })
+});
+
+app.put('/api/recentReviews/:id', (req, res) => {
+  const gameId = req.params.id;
+  const b = req.body;
+  const args = [gameId, b.authorId, b.date, b.text, b.reviewType, b.hrsAtReview, b.purchaseType, b.lang, b.earlyAccess, b.id];
+
+  db.updateReview(...args)
+    .then((result) => {
+      res.send('updated review')
+    })
+    .catch((err) => {
+      res.send('could not update review')
+    })
+})
+
+app.delete('/api/recentReviews/:id', (req, res) => {
+  const reviewId = req.body.id;
+  db.deleteReview(reviewId)
+    .then((success) => {
+      res.send('deleted a review');
+    })
+    .catch((err) => {
+      res.send('could not delete review');
+    });
+});
+
+
 app.get('/api/helpfulReviews/:id', (req, res) => {
   const gameId = req.params.id;
   db.getHelpfulReviews(gameId)
