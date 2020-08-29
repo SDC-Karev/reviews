@@ -1,5 +1,9 @@
+# Data Generation Files
+database/generatedTables/*
+
 #config files
 database/config.js
+database/dbTransfer.sh
 
 # Logs
 logs
