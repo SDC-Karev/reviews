@@ -209,25 +209,25 @@ class RecentReview extends React.Component {
           <ControlBlock>
             <ControlBlockText>Helpful?</ControlBlockText>
             <VoteContainer>
-            <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+            <Button href='#' onClick ={() => {console.log('hiyeeee!!!')}}>
                 <ButtonSpan>
                   <ThumbsUp></ThumbsUp>
                   Yes
                 </ButtonSpan>
               </Button>
-              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+              <Button href='#' onClick ={() => {console.log('hiyeeee!!!')}}>
                 <ButtonSpan>
                   <ThumbsDown></ThumbsDown>
                   No
                 </ButtonSpan>
               </Button>
-              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+              <Button href='#' onClick ={() => {console.log('hiyeeee!!!')}}>
                 <ButtonSpan>
                   <Smiley></Smiley>
                   Funny
                 </ButtonSpan>
               </Button>
-              <Button href='javascript:void(0)' onClick ={() => {console.log('hiyeeee!!!')}}>
+              <Button href='#' onClick ={() => {console.log('hiyeeee!!!')}}>
                 <ButtonSpan>
                   <Award src='https://store.cloudflare.steamstatic.com/public/shared/images//award_icon.svg'></Award>
                    Award

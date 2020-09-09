@@ -1,0 +1,11 @@
+id,date,text,name,review_type,hrs_at_review
+19801062,2020-08-11,dolorum consequuntur exercitationem,Whitney.Wyman92,1,142
+review_id,count,award_name,date,text,author_name,review_type,product_count,review_count,hrs_on_record,hrs_at_review
+8735,14,helpful,2020-04-12,et ex quasi,Carissa_Ullrich,1,44,59,16,490
+id,date,text,name,review_type,product_count,review_count,hrs_on_record,hrs_at_review
+18000015,2020-05-25,labore consectetur fuga,Jairo.Mayer,0,52,2,66,415
+count
+1
+review_type,count
+0,1
+award_id,count,name

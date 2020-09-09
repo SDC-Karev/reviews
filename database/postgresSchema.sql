@@ -1,9 +1,20 @@
+DROP TABLE IF EXISTS reviews_awards;
+DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS awards;
+DROP TABLE IF EXISTS authors_games;
+DROP TABLE IF EXISTS authors;
+DROP TABLE IF EXISTS reviews;
+
+
+
+
+
 CREATE TABLE IF NOT EXISTS reviews (
     id            	SERIAL PRIMARY KEY,
     game_id         integer,
     author_id       integer,
     date            date,
-    text			text,
+    text			varchar(25),
     review_type		integer,
     hrs_at_review	integer,
     purchase_type	integer,

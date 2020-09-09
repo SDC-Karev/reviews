@@ -8,7 +8,7 @@ import Header from './Header.jsx';
 import FilterBar from './FilterBar.jsx';
 import FilterDetails from './FilterDetails.jsx';
 
-const gameId = 9;
+// const gameId = 9;
 // const url = '3.129.63.238';
 const url = 'localhost';
 // change to localhost when working locally
@@ -59,7 +59,7 @@ const SubHeaderDays = styled.span`
 class Reviews extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { gameId: -1 };
     this.getHelpfulReviews.bind(this);
     this.getRecentReviews.bind(this);
     this.getReviewCount.bind(this);
@@ -68,7 +68,22 @@ class Reviews extends React.Component {
     this.getRecentReviewSentiment.bind(this);
   }
 
+  setGameId() {
+    const idPath = window.location.pathname;
+    const urlID = idPath.match(/\d+/);
+
+    // gets the gameid from url, defaults to 5000 if not found
+    if (urlID) {
+      var newID = urlID[0];
+    } else {
+      var newID = '5000';
+    }
+    newID = Number.parseInt(newID, 10);
+    this.setState({ gameId: newID });
+  }
+
   componentDidMount() {
+    this.setGameId();
     this.getHelpfulReviews();
     this.getRecentReviews();
     this.getReviewCount();
@@ -77,8 +92,21 @@ class Reviews extends React.Component {
     this.getRecentReviewSentiment();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.gameId !== this.state.gameId) {
+      this.getHelpfulReviews();
+      this.getRecentReviews();
+      this.getReviewCount();
+      this.getRecentReviewCount();
+      this.getReviewSentiment();
+      this.getRecentReviewSentiment();
+    }
+  }
+
+
+
   getHelpfulReviews() {
-    axios.get(`http://${url}:3004/api/helpfulReviews/${gameId}`)
+    axios.get(`http://${url}:3004/api/helpfulReviews/${this.state.gameId}`)
       .then((helpfulReviews) => {
         this.setState({ helpfulReviews: helpfulReviews.data });
       })
@@ -88,7 +116,7 @@ class Reviews extends React.Component {
   }
 
   getRecentReviews() {
-    axios.get(`http://${url}:3004/api/recentReviews/${gameId}`)
+    axios.get(`http://${url}:3004/api/recentReviews/${this.state.gameId}`)
       .then((recentReviews) => {
         this.setState({ recentReviews: recentReviews.data });
       })
@@ -98,7 +126,7 @@ class Reviews extends React.Component {
   }
 
   getReviewCount() {
-    axios.get(`http://${url}:3004/api/reviewCount/${gameId}`)
+    axios.get(`http://${url}:3004/api/reviewCount/${this.state.gameId}`)
       .then((count) => {
         this.setState({ reviewCount: count.data });
       })
@@ -108,7 +136,7 @@ class Reviews extends React.Component {
   }
 
   getRecentReviewCount() {
-    axios.get(`http://${url}:3004/api/recentReviewCount/${gameId}`)
+    axios.get(`http://${url}:3004/api/recentReviewCount/${this.state.gameId}`)
       .then((count) => {
         this.setState({ recentReviewCount: count.data });
       })
@@ -118,8 +146,15 @@ class Reviews extends React.Component {
   }
 
   getReviewSentiment() {
-    axios.get(`http://${url}:3004/api/reviewSentiment/${gameId}`)
+    axios.get(`http://${url}:3004/api/reviewSentiment/${this.state.gameId}`)
       .then((sentiment) => {
+        if (!sentiment.data[0]) {
+          sentiment.data = [{"review_type": 0, "count(*)": 0}, {"review_type": 1, "count(*)": 0}];
+        }
+        if (!sentiment.data[1]) {
+          sentiment.data[1] = { "review_type": 1, "count(*)": 0 };
+        }
+
         const revSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
         const revSentPct = (Math.floor(revSent * 100)) + '%';
         this.setState({ reviewSentiment: revSent, percent: revSentPct });
@@ -130,8 +165,14 @@ class Reviews extends React.Component {
   }
 
   getRecentReviewSentiment() {
-    axios.get(`http://${url}:3004/api/recentReviewSentiment/${gameId}`)
+    axios.get(`http://${url}:3004/api/recentReviewSentiment/${this.state.gameId}`)
       .then((sentiment) => {
+        if (!sentiment.data[0]) {
+          sentiment.data = [{ "review_type": 0, "count(*)": 0 }, { "review_type": 1, "count(*)": 0 }];
+        }
+        if (!sentiment.data[1]) {
+          sentiment.data[1] = { "review_type": 1, "count(*)": 0 };
+        }
         const recRevSent = sentiment.data[0][`count(*)`] / (sentiment.data[0][`count(*)`] + sentiment.data[1][`count(*)`]);
         const recRevSentPct = (Math.floor(recRevSent * 100)) + '%';
         this.setState({ recentReviewSentiment: recRevSent, recentPercent: recRevSentPct });

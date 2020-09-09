@@ -86,7 +86,6 @@ const deleteReview = function(reviewId) {
 
 
 
-
 const getHelpfulReviews = function(gameId) {
   return new Promise((resolve, reject) => {
     connection.query(

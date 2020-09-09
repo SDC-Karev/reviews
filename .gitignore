@@ -4,6 +4,7 @@ database/generatedTables/*
 #config files
 database/config.js
 database/dbTransfer.sh
+newrelic.config.js
 
 # Logs
 logs

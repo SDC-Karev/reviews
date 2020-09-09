@@ -41,11 +41,16 @@
     "express": "^4.17.1",
     "flexbox-react": "^4.4.0",
     "moment": "^2.27.0",
+    "mongodb": "^3.6.0",
     "mongoose": "^5.10.2",
+    "mongoose-auto-increment": "^5.0.1",
     "mysql": "^2.18.1",
+    "newrelic": "^6.13.0",
+    "pg": "^8.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "unique-names-generator": "^4.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -72,4 +77,3 @@
     "webpack-cli": "^3.3.12"
   }
 }
-

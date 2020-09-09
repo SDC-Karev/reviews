@@ -1,8 +1,10 @@
+require('newrelic');
 const express = require('express');
 const cors = require('cors');
 
 const bodyParser = require('body-parser');
 const db = require('../database');
+const pg = require('../database/pgIndex.js');
 
 const app = express();
 const port = 3004;
@@ -29,20 +31,32 @@ app.listen(port, () => {
 
 app.use(bodyParser.json());
 // UNCOMMENT FOR REACT
-app.use(express.static(__dirname + '/../client/dist'));
+// app.use('/:gameId', express.static(__dirname + '/../client/dist'));
+app.use(express.static(`${__dirname}/../client/dist`));
+
 
 // cors(corsOptions),
 app.get('/api/recentReviews/:id', (req, res) => {
   const gameId = req.params.id;
-  db.getRecentReviews(gameId)
-    .then((reviews) => {
-      res.send(reviews);
-      res.end();
-    })
-    .catch((err) => {
-      res.send(err);
-      res.end();
-    });
+  // MySQL Handler
+  // db.getRecentReviews(gameId)
+  //   .then((reviews) => {
+  //     res.send(reviews);
+  //     res.end();
+  //   })
+  //   .catch((err) => {
+  //     res.send(err);
+  //     res.end();
+  //   });
+
+  // Postgres Handler
+  pg.getRecentReviews(gameId, (err, data) => {
+    if (err) {
+      re.send('An error has ocurred fetching recent reviews');
+    } else {
+      res.send(data.rows);
+    }
+  });
 });
 
 app.post('/api/recentReviews/:id', (req, res) => {
@@ -56,7 +70,7 @@ app.post('/api/recentReviews/:id', (req, res) => {
     })
     .catch((err) => {
       res.send('something went wrong, could not post new review')
-    })
+    });
 });
 
 app.put('/api/recentReviews/:id', (req, res) => {
@@ -87,22 +101,44 @@ app.delete('/api/recentReviews/:id', (req, res) => {
 
 app.get('/api/helpfulReviews/:id', (req, res) => {
   const gameId = req.params.id;
-  db.getHelpfulReviews(gameId)
-    .then((reviews) => {
-      res.send(reviews);
-      res.end();
-    })
-    .catch((err) => {
-      res.send(err);
-      res.end();
-    });
+
+  // MySQL Handler
+  // db.getHelpfulReviews(gameId)
+  //   .then((reviews) => {
+  //     res.send(reviews);
+  //     res.end();
+  //   })
+  //   .catch((err) => {
+  //     res.send(err);
+  //     res.end();
+  //   });
+
+  // Postgres Handler
+  pg.getHelpfulReviews(gameId, (err, data) => {
+    if (err) {
+      res.send('Error getting awards')
+    } else {
+      res.send(data.rows);
+    }
+  })
 });
 
 app.get('/api/reviewCount/:id', (req, res) => {
   const gameId = req.params.id;
-  db.getReviewCount(gameId)
+//   db.getReviewCount(gameId)
+//     .then((count) => {
+//       res.send(count);
+//       res.end();
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//       res.end();
+//     });
+// });
+
+  pg.getReviewCount(gameId)
     .then((count) => {
-      res.send(count);
+      res.send(count.rows);
       res.end();
     })
     .catch((err) => {
@@ -113,9 +149,19 @@ app.get('/api/reviewCount/:id', (req, res) => {
 
 app.get('/api/recentReviewCount/:id', (req, res) => {
   const gameId = req.params.id;
-  db.getRecentReviewCount(gameId)
+//   db.getRecentReviewCount(gameId)
+//     .then((count) => {
+//       res.send(count);
+//       res.end();
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//       res.end();
+//     });
+// });
+  pg.getRecentReviewCount(gameId)
     .then((count) => {
-      res.send(count);
+      res.send(count.rows);
       res.end();
     })
     .catch((err) => {
@@ -126,9 +172,19 @@ app.get('/api/recentReviewCount/:id', (req, res) => {
 
 app.get('/api/reviewSentiment/:id', (req, res) => {
   const gameId = req.params.id;
-  db.getReviewSentiment(gameId)
+  // db.getReviewSentiment(gameId)
+  //   .then((sentiment) => {
+  //     res.send(sentiment);
+  //     res.end();
+  //   })
+  //   .catch((err) => {
+  //     res.send(err);
+  //     res.end();
+  //   });
+
+    pg.getReviewSentiment(gameId)
     .then((sentiment) => {
-      res.send(sentiment);
+      res.send(sentiment.rows);
       res.end();
     })
     .catch((err) => {
@@ -139,9 +195,19 @@ app.get('/api/reviewSentiment/:id', (req, res) => {
 
 app.get('/api/recentReviewSentiment/:id', (req, res) => {
   const gameId = req.params.id;
-  db.getRecentReviewSentiment(gameId)
+  // db.getRecentReviewSentiment(gameId)
+  //   .then((sentiment) => {
+  //     res.send(sentiment);
+  //     res.end();
+  //   })
+  //   .catch((err) => {
+  //     res.send(err);
+  //     res.end();
+  //   });
+
+  pg.getRecentReviewSentiment(gameId)
     .then((sentiment) => {
-      res.send(sentiment);
+      res.send(sentiment.rows);
       res.end();
     })
     .catch((err) => {
@@ -152,15 +218,22 @@ app.get('/api/recentReviewSentiment/:id', (req, res) => {
 
 app.get('/api/awards/:id', (req, res) => {
   const reviewId = req.params.id;
-  db.getAwards(reviewId)
-    .then((awards) => {
-      res.send(awards);
-      res.end();
-    })
-    .catch((err) => {
-      res.send(err);
-      res.end();
-    });
+  // db.getAwards(reviewId)
+  //   .then((awards) => {
+  //     res.send(awards);
+  //     res.end();
+  //   })
+  //   .catch((err) => {
+  //     res.send(err);
+  //     res.end();
+  //   });
+  pg.getAwards(reviewId, (err, data) => {
+    if (err) {
+      res.send('Error getting awards')
+    } else {
+      res.send(data.rows);
+    }
+  })
 });
 
 // app.get('/api/allReviews', cors(corsOptions), (req, res) => {
